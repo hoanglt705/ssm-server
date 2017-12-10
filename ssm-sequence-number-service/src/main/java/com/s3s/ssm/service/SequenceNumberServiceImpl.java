@@ -24,11 +24,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.mysema.query.jpa.JPASubQuery;
-import com.mysema.query.jpa.impl.JPAQuery;
-import com.mysema.query.types.expr.BooleanExpression;
-import com.mysema.query.types.query.NumberSubQuery;
-import com.sunrise.xdoc.entity.system.QSequenceNumber;
 import com.sunrise.xdoc.entity.system.SequenceNumber;
 
 @Component("sequenceNumberService")
@@ -41,32 +36,37 @@ class SequenceNumberServiceImpl implements ISequenceNumberService {
   private final String PAYMENT_SEQ = "payment_seq";
   @PersistenceContext
   private EntityManager entityManager;
-  @Autowired
-  private ICompanyService companyService;
+//  @Autowired
+//  private ICompanyService companyService;
 
   @Override
   public String getInvoiceNextSequence() {
-    return getNextSequence(INVOICE_SEQ, companyService.getCompany().getInvoiceCodeRule());
+    return getNextSequence(INVOICE_SEQ, "");
+//    return getNextSequence(INVOICE_SEQ, companyService.getCompany().getInvoiceCodeRule());
   }
 
   @Override
   public String getEmployeeNextSequence() {
-    return getNextSequence(EMPLOYEE_SEQ, companyService.getCompany().getEmployeeCodeRule());
+    return getNextSequence(EMPLOYEE_SEQ, "");
+//    return getNextSequence(EMPLOYEE_SEQ, companyService.getCompany().getEmployeeCodeRule());
   }
 
   @Override
   public String getExportStoreFormNextSequence() {
-    return getNextSequence(EXPORT_STORE_FORM_SEQ, companyService.getCompany().getExportFormCodeRule());
+    return getNextSequence(EXPORT_STORE_FORM_SEQ, "");
+//    return getNextSequence(EXPORT_STORE_FORM_SEQ, companyService.getCompany().getExportFormCodeRule());
   }
 
   @Override
   public String getImportStoreFormNextSequence() {
-    return getNextSequence(IMPORT_STORE_FORM_SEQ, companyService.getCompany().getImportFormCodeRule());
+    return getNextSequence(IMPORT_STORE_FORM_SEQ, "");
+//    return getNextSequence(IMPORT_STORE_FORM_SEQ, companyService.getCompany().getImportFormCodeRule());
   }
 
   @Override
   public String getPaymentNextSequence() {
-    return getNextSequence(PAYMENT_SEQ, companyService.getCompany().getPaymentCodeRule());
+    return getNextSequence(PAYMENT_SEQ, "");
+//    return getNextSequence(PAYMENT_SEQ, companyService.getCompany().getPaymentCodeRule());
   }
 
   @Override
@@ -78,7 +78,7 @@ class SequenceNumberServiceImpl implements ISequenceNumberService {
       throw new IllegalArgumentException("The parameter must be not null");
     }
 
-    QSequenceNumber qSequenceNumber = QSequenceNumber.sequenceNumber;
+    /*QSequenceNumber qSequenceNumber = QSequenceNumber.sequenceNumber;
     BooleanExpression expression = qSequenceNumber.label.eq(label);
 
     NumberSubQuery<Long> subQuery = new JPASubQuery().from(qSequenceNumber).where(expression).unique(
@@ -95,7 +95,8 @@ class SequenceNumberServiceImpl implements ISequenceNumberService {
             + StringUtils.leftPad(seqNumString,
                     companyService.getCompany().getCodeLength() - codeRule.length(), '0');
     storeSeqNum(label, seqNum);
-    return seqNumString;
+    return seqNumString;*/
+    return "1";
   }
 
   private void storeSeqNum(String label, Long seqNum) {

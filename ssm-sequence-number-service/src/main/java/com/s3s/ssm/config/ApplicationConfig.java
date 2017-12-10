@@ -16,28 +16,22 @@
 
 package com.s3s.ssm.config;
 
-import org.jdesktop.application.SingleFrameApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+
 
 @Configuration
 @EnableAutoConfiguration
 @Import({ManageServiceConfig.class})
 @EnableJpaRepositories(basePackages = "com.s3s.ssm.repo")
-public class ApplicationConfig extends SingleFrameApplication {
+public class ApplicationConfig {
 
   public static void main(String[] args) {
-    launch(ApplicationConfig.class, args);
-  }
-
-  @Override
-  protected void initialize(String[] args) {
-  }
-
-
-  @Override
-  protected void startup() {
-  }
+	    SpringApplicationBuilder builder = new SpringApplicationBuilder(ApplicationConfig.class);
+	    builder.headless(false);
+	    builder.run(args);
+	  }
 }
