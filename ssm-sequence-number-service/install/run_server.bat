@@ -1,1 +1,0 @@
-javaw -jar D:\private\workspace\projects\XCafe1\ssm-spring-boot-service\install\ssm-spring-boot-service-1.0-SNAPSHOT.jar
