@@ -54,6 +54,7 @@
 
 	<modules>
 		<module>ssm-service-api</module>
+		<module>ssm-sequence-number-service</module>
 		<module>ssm-spring-boot-service</module>
 	</modules>
 
