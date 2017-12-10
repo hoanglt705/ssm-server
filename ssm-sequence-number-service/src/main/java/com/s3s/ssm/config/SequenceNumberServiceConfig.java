@@ -32,7 +32,7 @@ import com.s3s.ssm.service.ISequenceNumberService;
 @EnableAutoConfiguration
 @Import(InfrastructureConfig.class)
 @EnableJpaRepositories(basePackages = "com.s3s.ssm.repo")
-public class ManageServiceConfig {
+public class SequenceNumberServiceConfig {
 	
   @Autowired
   private ISequenceNumberService sequenceNumberService;
