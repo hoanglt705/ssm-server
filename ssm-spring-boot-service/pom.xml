@@ -94,30 +94,6 @@
 			<artifactId>powermock-module-test-mockito-junit4</artifactId>
 			<scope>test</scope>
 		</dependency>
-		<dependency>
-			<groupId>org.jdesktop.bsaf</groupId>
-			<artifactId>bsaf</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>jyloo</groupId>
-			<artifactId>synthetica</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>jyloo</groupId>
-			<artifactId>syntheticaSkyMetallic</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>jyloo</groupId>
-			<artifactId>syntheticaAddons</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>jyloo</groupId>
-			<artifactId>syntheticaAddonsWithThemes</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.swinglabs.swingx</groupId>
-			<artifactId>swingx-all</artifactId>
-		</dependency>
 	</dependencies>
 	<build>
 		<plugins>
