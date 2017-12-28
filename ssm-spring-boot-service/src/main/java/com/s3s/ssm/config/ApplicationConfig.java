@@ -26,7 +26,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @Configuration
 @EnableAutoConfiguration
 @Import({PosServiceConfig.class, ManageServiceConfig.class, ReportServiceConfig.class,
-    DashboardServiceConfig.class, TimelineServiceConfig.class, ServiceCacheConfig.class, FoodTableServiceConfig.class})
+    DashboardServiceConfig.class, TimelineServiceConfig.class, ServiceCacheConfig.class})
 @EnableJpaRepositories(basePackages = "com.s3s.ssm.repo")
 public class ApplicationConfig {
 
