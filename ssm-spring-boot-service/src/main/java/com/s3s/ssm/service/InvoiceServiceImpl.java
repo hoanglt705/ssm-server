@@ -31,6 +31,7 @@ import javax.persistence.PersistenceContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.client.RestTemplate;
 
 import com.mysema.query.jpa.impl.JPAQuery;
 import com.mysema.query.jpa.impl.JPAUpdateClause;
@@ -46,7 +47,6 @@ import com.s3s.ssm.dto.InvoiceStatus;
 import com.s3s.ssm.dto.LatestInvoiceDto;
 import com.s3s.ssm.dto.ProductDto;
 import com.s3s.ssm.dto.UnitOfMeasureDto;
-import com.s3s.ssm.repo.FoodTableRepository;
 import com.s3s.ssm.repo.InvoiceRepository;
 import com.s3s.ssm.repo.MaterialRepository;
 import com.s3s.ssm.repo.ProductRepository;
@@ -70,8 +70,6 @@ class InvoiceServiceImpl implements IInvoiceService {
   private InvoiceRepository invoiceRepository;
   @Autowired
   private ISequenceNumberService sequenceNumberService;
-  @Autowired
-  private FoodTableRepository foodTableRepo;
   @Autowired
   private ProductRepository productRepo;
   @Autowired
@@ -176,7 +174,9 @@ class InvoiceServiceImpl implements IInvoiceService {
     Invoice invoice = new Invoice();
     invoice.setCode(code);
     invoice.setInvoiceStatus(InvoiceStatus.BOOKING);
-    FoodTable foodTable = foodTableRepo.findOne(foodTableDto.getId());
+    RestTemplate restTemplate = new RestTemplate();
+    FoodTable foodTable = restTemplate.getForObject("", FoodTable.class);
+//    FoodTable foodTable = foodTableRepo.findOne(foodTableDto.getId());
     invoice.setFoodTable(foodTable);
 
     invoiceDto.setId(invoiceRepository.save(invoice).getId());
@@ -273,7 +273,9 @@ class InvoiceServiceImpl implements IInvoiceService {
   @Override
   public InvoiceDto moveInvoice(InvoiceDto fromInvoiceDto, FoodTableDto toTableDto) {
     fromInvoiceDto.setFoodTable(toTableDto);
-    FoodTable table = foodTableRepo.findOne(toTableDto.getId());
+    RestTemplate restTemplate = new RestTemplate();
+    FoodTable table = restTemplate.getForObject("", FoodTable.class);
+//    FoodTable table = foodTableRepo.findOne(toTableDto.getId());
     Invoice invoice = invoiceRepository.findOne(fromInvoiceDto.getId());
     invoice.setFoodTable(table);
     invoiceRepository.save(invoice);
@@ -351,7 +353,9 @@ class InvoiceServiceImpl implements IInvoiceService {
     }
     invoice.setCode(dto.getCode());
     if (dto.getFoodTable() != null) {
-      FoodTable foodTable = foodTableRepo.findByCode(dto.getFoodTable().getCode());
+      RestTemplate restTemplate = new RestTemplate();
+      FoodTable foodTable = restTemplate.getForObject("", FoodTable.class);
+//      FoodTable foodTable = foodTableRepo.findByCode(dto.getFoodTable().getCode());
       invoice.setFoodTable(foodTable);
     }
     invoice.setCreatedDate(dto.getCreatedDate());

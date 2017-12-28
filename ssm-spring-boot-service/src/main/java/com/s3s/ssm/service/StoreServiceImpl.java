@@ -21,24 +21,17 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.s3s.ssm.dto.ExportStoreFormDto;
 import com.s3s.ssm.dto.ImportStoreFormDto;
-import com.s3s.ssm.repo.AreaRepository;
-import com.s3s.ssm.repo.FoodTableRepository;
 
 @Component("storeService")
 @Transactional
 class StoreServiceImpl implements IStoreService {
   @PersistenceContext
   private EntityManager entityManager;
-  @Autowired
-  private AreaRepository areaRepository;
-  @Autowired
-  private FoodTableRepository foodTableRepository;
 
   @Override
   public void updateQuantityOfProductInStore(ImportStoreFormDto form) {

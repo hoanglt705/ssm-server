@@ -19,9 +19,9 @@ package com.s3s.ssm.service;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.client.RestTemplate;
 
 import com.mysema.query.Tuple;
 import com.mysema.query.jpa.impl.JPAQuery;
@@ -31,7 +31,6 @@ import com.mysema.query.types.Projections;
 import com.mysema.query.types.QBean;
 import com.s3s.ssm.dto.FinalPeriodSaleProcessDto;
 import com.s3s.ssm.dto.FinalPeriodTableProcessDto;
-import com.s3s.ssm.repo.FoodTableRepository;
 import com.sunrise.xdoc.entity.config.FoodTable;
 import com.sunrise.xdoc.entity.store.QFinalPeriodSaleProcess;
 import com.sunrise.xdoc.entity.store.QFinalPeriodTableProcess;
@@ -41,10 +40,6 @@ import com.sunrise.xdoc.entity.store.QFinalPeriodTableProcess;
 class FinalPeriodProcessServiceImpl implements IFinalPeriodProcessService {
   @PersistenceContext
   private EntityManager entityManager;
-  @Autowired
-  private FoodTableRepository foodTableRepository;
-  @Autowired
-  private IFoodTableService foodTableService;
 
   @Override
   public FinalPeriodSaleProcessDto findLatestFinalPeriodSaleProcess() {
@@ -65,7 +60,10 @@ class FinalPeriodProcessServiceImpl implements IFinalPeriodProcessService {
 
   @Override
   public FinalPeriodTableProcessDto findLatestFinalPeriodTableProcess(String foodTableCode) {
-    FoodTable foodTable1 = foodTableRepository.findByCode(foodTableCode);
+	  RestTemplate restTemplate = new RestTemplate();  
+	  restTemplate.getForObject("", FoodTable.class);
+//    FoodTable foodTable1 = foodTableRepository.findByCode(foodTableCode);
+	  FoodTable foodTable1 = restTemplate.getForObject("", FoodTable.class);
 
     if (foodTable1 == null) {
       return null;

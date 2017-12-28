@@ -22,7 +22,6 @@ public class DataTestServiceImpl implements IDataTestService {
     SSMDataLoader.cleanDatabase();
     SSMDataLoader.initEmployeeModule();
     SSMDataLoader.initCompany();
-    SSMDataLoader.initFoodTable(SSMDataLoader.initArea());
     SSMDataLoader.initProductType();
     SSMDataLoader.initUOMCategory();
     SSMDataLoader.initUOM();

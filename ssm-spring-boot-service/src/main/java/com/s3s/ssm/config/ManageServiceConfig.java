@@ -25,11 +25,9 @@ import org.springframework.context.annotation.Import;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.remoting.caucho.HessianServiceExporter;
 
-import com.s3s.ssm.service.IAreaService;
 import com.s3s.ssm.service.ICompanyService;
 import com.s3s.ssm.service.IEmployeeService;
 import com.s3s.ssm.service.IFoodService;
-import com.s3s.ssm.service.IFoodTableService;
 import com.s3s.ssm.service.IImportStoreFormService;
 import com.s3s.ssm.service.IInvoiceService;
 import com.s3s.ssm.service.IMaterialService;
@@ -55,9 +53,6 @@ import com.s3s.ssm.service.IUomCategoryService;
 @EnableJpaRepositories(basePackages = "com.s3s.ssm.repo")
 public class ManageServiceConfig {
   @Autowired
-  private IAreaService areaService;
-
-  @Autowired
   private IPaymentService paymentService;
 
   @Autowired
@@ -68,9 +63,6 @@ public class ManageServiceConfig {
 
   @Autowired
   private IInvoiceService invoiceService;
-
-  @Autowired
-  private IFoodTableService foodTableService;
 
   @Autowired
   private IProductTypeService productTypeService;
@@ -119,14 +111,6 @@ public class ManageServiceConfig {
 
   @Autowired
   private IImportStoreFormService importStoreFormService;
-
-  @Bean(name = "/AreaService")
-  public HessianServiceExporter hessianAreaServiceExporter() {
-    HessianServiceExporter exporter = new HessianServiceExporter();
-    exporter.setService(this.areaService);
-    exporter.setServiceInterface(IAreaService.class);
-    return exporter;
-  }
 
   @Bean(name = "/MaterialService")
   public HessianServiceExporter hessianMaterialServiceExporter() {
@@ -189,14 +173,6 @@ public class ManageServiceConfig {
     HessianServiceExporter exporter = new HessianServiceExporter();
     exporter.setService(this.securityUserService);
     exporter.setServiceInterface(ISecurityUserService.class);
-    return exporter;
-  }
-
-  @Bean(name = "/FoodTableService")
-  public HessianServiceExporter hessianFoodTableServiceExporter() {
-    HessianServiceExporter exporter = new HessianServiceExporter();
-    exporter.setService(this.foodTableService);
-    exporter.setServiceInterface(IFoodTableService.class);
     return exporter;
   }
 

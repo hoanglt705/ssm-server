@@ -17,6 +17,7 @@ import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.client.RestTemplate;
 
 import com.mysema.query.Tuple;
 import com.mysema.query.jpa.impl.JPAQuery;
@@ -41,8 +42,6 @@ import com.s3s.ssm.dto.report.ProductIncomeDto;
 import com.s3s.ssm.repo.FinalPeriodProductProcessRepository;
 import com.s3s.ssm.repo.FinalPeriodSaleProcessRepository;
 import com.s3s.ssm.repo.FinalPeriodTableProcessRepository;
-import com.s3s.ssm.repo.FoodTableRepository;
-import com.s3s.ssm.repo.InvoiceRepository;
 import com.s3s.ssm.repo.MaterialRepository;
 import com.s3s.ssm.util.InvoiceUtil;
 import com.sunrise.xdoc.entity.catalog.Food;
@@ -77,18 +76,10 @@ class ReportServiceImpl implements IReportService {
   private IFinalPeriodProcessService finalPeriodProcessService;
 
   @Autowired
-  private IFoodTableService foodTableService;
-  @Autowired
   private ICompanyService companyService;
 
   @Autowired
-  private FoodTableRepository foodTableRepository;
-
-  @Autowired
   private MaterialRepository materialRepository;
-
-  @Autowired
-  private InvoiceRepository invoiceRepository;
 
   @Autowired
   private FinalPeriodTableProcessRepository finalPeriodTableProcessRepository;
@@ -519,19 +510,6 @@ class ReportServiceImpl implements IReportService {
             .where(booleanExpression).singleResult(qBean);
   }
 
-  private int getInStoreQuantity(String materialCode, Date toDate) {
-    QExportStoreDetail qExportStoreDetail = QExportStoreDetail.exportStoreDetail;
-    BooleanExpression expression = qExportStoreDetail.material.code
-            .eq(materialCode);
-    if (toDate != null) {
-      expression = expression.and(qExportStoreDetail.exportStoreForm.createdDate.loe(toDate));
-    }
-    Integer quantitySum = new JPAQuery(entityManager)
-            .from(qExportStoreDetail).where(expression)
-            .uniqueResult(qExportStoreDetail.quantity.sum());
-    return quantitySum != null ? quantitySum : 0;
-  }
-
   @Override
   public int getExportedQuantity(String materialCode, Date fromDate, Date toDate) {
     QExportStoreDetail qExportStoreDetail = QExportStoreDetail.exportStoreDetail;
@@ -577,7 +555,10 @@ class ReportServiceImpl implements IReportService {
   }
 
   private List<FinalPeriodFoodTableProcessDto> processFinalFoodTablePeriod(Date processTime) {
-    Iterable<FoodTable> foodTables = foodTableRepository.findByActive(true);
+	  RestTemplate restTemplate = new RestTemplate();
+//      FoodTable foodTable = restTemplate.getForObject("", Iterable<FoodTable>.class);
+//    Iterable<FoodTable> foodTables = foodTableRepository.findByActive(true);
+	  Iterable<FoodTable> foodTables = Collections.emptyList();
     List<FinalPeriodFoodTableProcessDto> result = new ArrayList<>();
     for (FoodTable table : foodTables) {
       FinalPeriodTableProcessDto latestProcessing = finalPeriodProcessService
