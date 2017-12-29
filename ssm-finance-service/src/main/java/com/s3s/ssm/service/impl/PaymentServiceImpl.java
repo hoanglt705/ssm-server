@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.s3s.ssm.service;
+package com.s3s.ssm.service.impl;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -37,6 +37,7 @@ import com.s3s.ssm.dto.PaymentDto;
 import com.s3s.ssm.dto.PaymentType;
 import com.s3s.ssm.repo.PaymentContentRepository;
 import com.s3s.ssm.repo.PaymentRepository;
+import com.s3s.ssm.service.IPaymentService;
 
 @Component("paymentService")
 class PaymentServiceImpl implements IPaymentService {

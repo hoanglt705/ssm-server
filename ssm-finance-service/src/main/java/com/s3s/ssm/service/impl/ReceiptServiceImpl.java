@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.s3s.ssm.service;
+package com.s3s.ssm.service.impl;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -28,6 +28,7 @@ import com.s3s.entity.Payment;
 import com.s3s.entity.QPayment;
 import com.s3s.ssm.dto.PaymentDto;
 import com.s3s.ssm.dto.PaymentType;
+import com.s3s.ssm.service.IReceiptService;
 
 @Component("receiptService")
 class ReceiptServiceImpl extends PaymentServiceImpl implements IReceiptService {

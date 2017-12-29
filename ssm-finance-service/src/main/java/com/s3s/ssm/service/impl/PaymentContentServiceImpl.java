@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.s3s.ssm.service;
+package com.s3s.ssm.service.impl;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -28,6 +28,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.s3s.entity.PaymentContent;
 import com.s3s.ssm.dto.PaymentContentDto;
 import com.s3s.ssm.repo.PaymentContentRepository;
+import com.s3s.ssm.service.IPaymentContentService;
 
 @Component("paymentContentService")
 @Transactional
