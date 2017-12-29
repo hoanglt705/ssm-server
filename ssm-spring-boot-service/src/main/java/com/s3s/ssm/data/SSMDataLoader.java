@@ -36,8 +36,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.s3s.ssm.config.ServerContextProvider;
 import com.s3s.ssm.dto.InvoiceStatus;
-import com.s3s.ssm.dto.PaymentMode;
-import com.s3s.ssm.dto.PaymentType;
 import com.s3s.ssm.repo.CompanyRepository;
 import com.s3s.ssm.repo.EmployeeRepository;
 import com.s3s.ssm.repo.FinalPeriodProductProcessRepository;
@@ -45,8 +43,6 @@ import com.s3s.ssm.repo.FinalPeriodTableProcessRepository;
 import com.s3s.ssm.repo.ImportStoreFormRepository;
 import com.s3s.ssm.repo.InvoiceRepository;
 import com.s3s.ssm.repo.MaterialRepository;
-import com.s3s.ssm.repo.PaymentContentRepository;
-import com.s3s.ssm.repo.PaymentRepository;
 import com.s3s.ssm.repo.ProductRepository;
 import com.s3s.ssm.repo.ProductTypeRepository;
 import com.s3s.ssm.repo.RoleRepository;
@@ -74,8 +70,6 @@ import com.sunrise.xdoc.entity.contact.Supplier;
 import com.sunrise.xdoc.entity.employee.Employee;
 import com.sunrise.xdoc.entity.employee.Role;
 import com.sunrise.xdoc.entity.employee.Shift;
-import com.sunrise.xdoc.entity.finance.Payment;
-import com.sunrise.xdoc.entity.finance.PaymentContent;
 import com.sunrise.xdoc.entity.sale.Invoice;
 import com.sunrise.xdoc.entity.sale.InvoiceDetail;
 import com.sunrise.xdoc.entity.store.ImportStoreDetail;
@@ -128,8 +122,6 @@ public class SSMDataLoader {
   private static List<Supplier> suppliers;
 
   private static List<Product> products;
-
-  private static List<PaymentContent> paymentContents;
 
   public static FoodTable foodTable_01;
 
@@ -269,7 +261,6 @@ public class SSMDataLoader {
     cleanFinalProcessing();
     cleanStoreModule();
     cleanSaleModule();
-    cleanFinanceModule();
     cleanEmployeeModule();
     cleanCatalogModule();
     cleanConfigModule();
@@ -310,11 +301,6 @@ public class SSMDataLoader {
     applicationContext.getBean(InvoiceRepository.class).deleteAll();
   }
 
-  private static void cleanFinanceModule() {
-    applicationContext.getBean(PaymentRepository.class).deleteAll();
-    applicationContext.getBean(PaymentContentRepository.class).deleteAll();
-  }
-
   private static void cleanContactModule() {
     applicationContext.getBean(SupplierRepository.class).deleteAll();
   }
@@ -338,7 +324,6 @@ public class SSMDataLoader {
 
   public static void initDatabase() {
     initBasicData();
-    initPayment(paymentContents, employees);
     initInvoice(foodTables, employees, products);
     initRetailInvoice(foodTables, employees, products);
     initImportStoreForm(employees, suppliers, products);
@@ -352,7 +337,6 @@ public class SSMDataLoader {
     initUOM();
     initSupplier();
     initProduct();
-    paymentContents = initPaymentContent();
   }
 
   private static void initImportStoreForm(List<Employee> employees,
@@ -557,60 +541,6 @@ public class SSMDataLoader {
     invoice1.setTotalReturnAmount(390000l);
     invoice1.setIncome(amount1 + amount2);
     applicationContext.getBean(InvoiceRepository.class).save(invoice1);
-  }
-
-  private static void initPayment(List<PaymentContent> paymentContents,
-          List<Employee> employees) {
-    List<Payment> payments = new ArrayList<Payment>();
-    Payment customReceipt = new Payment();
-    customReceipt.setCode("KHACH_TRA_TIEN_THIEU");
-    customReceipt.setStaff(employees.get(0));
-    customReceipt.setPaymentContent(paymentContents.get(0));
-    customReceipt.setPaymentMode(PaymentMode.CASH);
-    customReceipt.setAmount(50000L);
-    payments.add(customReceipt);
-
-    Payment elecPayment = new Payment();
-    elecPayment.setCode("TRA_TIEN_DIEN");
-    elecPayment.setStaff(employees.get(0));
-    elecPayment.setPaymentContent(paymentContents.get(1));
-    elecPayment.setPaymentMode(PaymentMode.CASH);
-    elecPayment.setAmount(200000L);
-    payments.add(elecPayment);
-
-    Payment waterPament = new Payment();
-    waterPament.setCode("TRA_TIEN_NUOC");
-    waterPament.setStaff(employees.get(0));
-    waterPament.setPaymentContent(paymentContents.get(2));
-    waterPament.setPaymentMode(PaymentMode.CASH);
-    waterPament.setAmount(300000L);
-    payments.add(waterPament);
-
-    applicationContext.getBean(PaymentRepository.class).save(payments);
-  }
-
-  public static List<PaymentContent> initPaymentContent() {
-    List<PaymentContent> paymentContents = new ArrayList<PaymentContent>();
-    PaymentContent receiveContent = new PaymentContent();
-    receiveContent.setCode("KHACH_TRA_TIEN_THIEU");
-    receiveContent.setName("Khach tra tien thieu");
-    receiveContent.setPaymentType(PaymentType.RECEIPT);
-    paymentContents.add(receiveContent);
-
-    PaymentContent electricContent = new PaymentContent();
-    electricContent.setCode("TRA_TIEN_DIEN");
-    electricContent.setName("Tra tien dien");
-    electricContent.setPaymentType(PaymentType.PAY);
-    paymentContents.add(electricContent);
-
-    PaymentContent waterContent = new PaymentContent();
-    waterContent.setCode("TRA_TIEN_NUOC");
-    waterContent.setName("Tra tien nuoc");
-    waterContent.setPaymentType(PaymentType.PAY);
-    paymentContents.add(waterContent);
-
-    applicationContext.getBean(PaymentContentRepository.class).save(paymentContents);
-    return paymentContents;
   }
 
   public static void initSupplier() {

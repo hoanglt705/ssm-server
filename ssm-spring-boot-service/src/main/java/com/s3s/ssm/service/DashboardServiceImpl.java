@@ -33,10 +33,7 @@ import com.mysema.query.types.Order;
 import com.mysema.query.types.OrderSpecifier;
 import com.s3s.ssm.dto.InvoiceStatus;
 import com.s3s.ssm.dto.LatestInvoiceDto;
-import com.s3s.ssm.dto.PaymentContentDto;
 import com.s3s.ssm.dto.PaymentDto;
-import com.sunrise.xdoc.entity.finance.QPayment;
-import com.sunrise.xdoc.entity.finance.QPaymentContent;
 import com.sunrise.xdoc.entity.sale.QInvoice;
 
 @Component("dashboardService")
@@ -48,31 +45,12 @@ class DashboardServiceImpl implements IDashboardService {
   private IInvoiceService invoiceService;
   @Autowired
   private IFoodTableService foodTableService;
-
+  @Autowired
+  private IPaymentService paymentService;
+  
   @Override
   public List<PaymentDto> getLatestPayment(int size) {
-    QPayment qPayment = QPayment.payment;
-    QPaymentContent qPaymentContent = QPaymentContent.paymentContent;
-
-    List<Tuple> list = new JPAQuery(entityManager).from(qPayment)
-            .leftJoin(qPayment.paymentContent, qPaymentContent)
-            .where(qPayment.active.eq(true)).limit(size)
-            .orderBy(new OrderSpecifier<>(Order.DESC, qPayment.paymentDate))
-            .list(qPayment.code, qPayment.paymentDate, qPaymentContent.name, qPayment.amount);
-
-    List<PaymentDto> result = new ArrayList<>();
-    for (Tuple tuple : list) {
-      PaymentDto dto = new PaymentDto();
-      dto.setCode(tuple.get(qPayment.code));
-      PaymentContentDto paymentContentDto = new PaymentContentDto();
-      paymentContentDto.setName(tuple.get(qPaymentContent.name));
-      dto.setPaymentContent(paymentContentDto);
-      dto.setPaymentDate(tuple.get(qPayment.paymentDate));
-      dto.setAmount(tuple.get(qPayment.amount));
-      result.add(dto);
-    }
-
-    return result;
+	return paymentService.getLatestPayment(size);
   }
 
   @Override

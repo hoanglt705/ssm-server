@@ -27,7 +27,6 @@ public class DataTestServiceImpl implements IDataTestService {
     SSMDataLoader.initUOM();
     SSMDataLoader.initSupplier();
     SSMDataLoader.initProduct();
-    SSMDataLoader.initPaymentContent();
   }
 
   protected void removingForeignKeys() {
