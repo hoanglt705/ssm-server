@@ -10,7 +10,7 @@ public class ImportStoreFormDto extends AbstractCodeObject {
   private static final long serialVersionUID = 1L;
   private Date createdDate = new Date();
   private String description;
-  private EmployeeDto staff;
+  private String staff;
   private Long amountTotal;
   private Long quantityTotal;
   private SupplierDto supplier;
@@ -32,11 +32,11 @@ public class ImportStoreFormDto extends AbstractCodeObject {
     this.description = description;
   }
 
-  public EmployeeDto getStaff() {
+  public String getStaff() {
     return staff;
   }
 
-  public void setStaff(EmployeeDto staff) {
+  public void setStaff(String staff) {
     this.staff = staff;
   }
 

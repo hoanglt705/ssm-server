@@ -31,14 +31,12 @@ import com.s3s.ssm.dto.ImportStoreDetailDto;
 import com.s3s.ssm.dto.ImportStoreFormDto;
 import com.s3s.ssm.dto.MaterialDto;
 import com.s3s.ssm.dto.UnitOfMeasureDto;
-import com.s3s.ssm.repo.EmployeeRepository;
 import com.s3s.ssm.repo.ImportStoreFormRepository;
 import com.s3s.ssm.repo.MaterialRepository;
 import com.s3s.ssm.repo.SupplierRepository;
 import com.s3s.ssm.repo.UnitOfMeasureRepository;
 import com.sunrise.xdoc.entity.catalog.Material;
 import com.sunrise.xdoc.entity.contact.Supplier;
-import com.sunrise.xdoc.entity.employee.Employee;
 import com.sunrise.xdoc.entity.store.ImportStoreDetail;
 import com.sunrise.xdoc.entity.store.ImportStoreForm;
 
@@ -47,8 +45,6 @@ import com.sunrise.xdoc.entity.store.ImportStoreForm;
 public class ImportStoreFormServiceImpl implements IImportStoreFormService {
   @Autowired
   private ImportStoreFormRepository importStoreFormRepository;
-  @Autowired
-  private EmployeeRepository employeeRepository;
   @Autowired
   private SupplierRepository supplierRepository;
   @Autowired
@@ -72,13 +68,12 @@ public class ImportStoreFormServiceImpl implements IImportStoreFormService {
   private void transformToEntity(ImportStoreFormDto dto, ImportStoreForm importStoreForm) {
     BeanUtils.copyProperties(dto, importStoreForm);
     if (importStoreForm.getStaff() != null) {
-      Employee staff = employeeRepository.findByCode(importStoreForm.getStaff().getCode());
-      importStoreForm.setStaff(staff);
+      importStoreForm.setStaff(importStoreForm.getStaff());
     } else {
       importStoreForm.setStaff(null);
     }
     if (importStoreForm.getStaff() != null) {
-      Supplier supplier = supplierRepository.findByCode(importStoreForm.getStaff().getCode());
+      Supplier supplier = supplierRepository.findByCode(importStoreForm.getStaff());
       importStoreForm.setSupplier(supplier);
     } else {
       importStoreForm.setStaff(null);
@@ -151,7 +146,7 @@ public class ImportStoreFormServiceImpl implements IImportStoreFormService {
   protected ImportStoreFormDto transformToDto(ImportStoreForm importStoreForm) {
     ImportStoreFormDto importStoreFormDto = new ImportStoreFormDto();
     BeanUtils.copyProperties(importStoreForm, importStoreFormDto);
-    importStoreFormDto.setStaff(EmployeeServiceImpl.transformToDto(importStoreForm.getStaff()));
+    importStoreFormDto.setStaff(importStoreForm.getStaff());
     importStoreFormDto.setSupplier(SupplierServiceImpl.transformToDto(importStoreForm.getSupplier()));
     Set<ImportStoreDetail> importDetails = importStoreForm.getImportDetails();
     for (ImportStoreDetail detail : importDetails) {

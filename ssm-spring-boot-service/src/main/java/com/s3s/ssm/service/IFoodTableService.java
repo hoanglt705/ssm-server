@@ -14,10 +14,14 @@
  * limitations under the License.
  */
 
-package com.s3s.ssm.repo;
+package com.s3s.ssm.service;
 
-import com.sunrise.xdoc.entity.employee.Shift;
+import java.util.List;
 
-public interface ShiftRepository extends CommonRepository<Shift, Long> {
+import com.s3s.ssm.dto.FoodTableDto;
 
+public interface IFoodTableService extends IViewService<FoodTableDto> {
+  List<FoodTableDto> findAllSameArea(String areaCode);
+
+  FoodTableDto findFoodTable(String foodTableCode);
 }

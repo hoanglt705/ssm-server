@@ -16,7 +16,6 @@ import javax.persistence.Table;
 
 import com.s3s.ssm.entity.AbstractActiveCodeOLObject;
 import com.sunrise.xdoc.entity.contact.Supplier;
-import com.sunrise.xdoc.entity.employee.Employee;
 
 @Entity
 @Table(name = "store_import_form")
@@ -25,7 +24,7 @@ public class ImportStoreForm extends AbstractActiveCodeOLObject {
   private static final long serialVersionUID = 1L;
   private Date createdDate = new Date();
   private String description;
-  private Employee staff;
+  private String staff;
   private Long amountTotal;
   private Long quantityTotal;
   private Supplier supplier;
@@ -51,11 +50,11 @@ public class ImportStoreForm extends AbstractActiveCodeOLObject {
 
   @ManyToOne
   @JoinColumn(name = "staff_id", nullable = false)
-  public Employee getStaff() {
+  public String getStaff() {
     return staff;
   }
 
-  public void setStaff(Employee staff) {
+  public void setStaff(String staff) {
     this.staff = staff;
   }
 

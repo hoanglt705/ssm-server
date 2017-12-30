@@ -20,7 +20,6 @@ import org.hibernate.annotations.Cascade;
 
 import com.s3s.ssm.entity.AbstractActiveCodeOLObject;
 import com.sunrise.xdoc.entity.contact.Supplier;
-import com.sunrise.xdoc.entity.employee.Employee;
 
 @Entity
 @Table(name = "store_export_form")
@@ -29,7 +28,7 @@ public class ExportStoreForm extends AbstractActiveCodeOLObject {
   private static final long serialVersionUID = 1L;
   private Date createdDate = new Date();
   private String description;
-  private Employee staff;
+  private String staff;
   private Long amountTotal;
   private Supplier supplier;
   private List<ImportStoreDetail> importDetails = new ArrayList<ImportStoreDetail>();
@@ -56,11 +55,11 @@ public class ExportStoreForm extends AbstractActiveCodeOLObject {
   @ManyToOne
   @JoinColumn(name = "staff_id")
   @NotNull
-  public Employee getStaff() {
+  public String getStaff() {
     return staff;
   }
 
-  public void setStaff(Employee staff) {
+  public void setStaff(String staff) {
     this.staff = staff;
   }
 

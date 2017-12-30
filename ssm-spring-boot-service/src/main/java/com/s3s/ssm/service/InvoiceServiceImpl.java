@@ -55,7 +55,6 @@ import com.sunrise.xdoc.entity.catalog.Material;
 import com.sunrise.xdoc.entity.catalog.Product;
 import com.sunrise.xdoc.entity.config.Area;
 import com.sunrise.xdoc.entity.config.FoodTable;
-import com.sunrise.xdoc.entity.employee.Employee;
 import com.sunrise.xdoc.entity.sale.Invoice;
 import com.sunrise.xdoc.entity.sale.InvoiceDetail;
 import com.sunrise.xdoc.entity.sale.QInvoice;
@@ -118,12 +117,10 @@ class InvoiceServiceImpl implements IInvoiceService {
       foodTableDto.setArea(areaDto);
       dto.setFoodTable(foodTableDto);
     }
-    Employee staff = invoice.getStaff();
+    String staff = invoice.getStaff();
     if (staff != null) {
       EmployeeDto staffDto = new EmployeeDto();
-      staffDto.setId(staff.getId());
-      staffDto.setCode(staff.getCode());
-      staffDto.setName(staff.getName());
+      staffDto.setCode(staff);
       dto.setStaff(staffDto);
     }
     dto.setCreatedDate(invoice.getCreatedDate());

@@ -24,7 +24,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.remoting.caucho.HessianServiceExporter;
 
-import com.s3s.ssm.service.IAreaService;
 import com.s3s.ssm.service.IDataTestService;
 import com.s3s.ssm.service.IProductService;
 import com.s3s.ssm.service.ISequenceNumberService;
@@ -37,8 +36,6 @@ public class PosServiceConfig {
   @Autowired
   private IProductService productService;
   @Autowired
-  private IAreaService areaService;
-  @Autowired
   private IDataTestService dataTestService;
 
   @Autowired
@@ -49,14 +46,6 @@ public class PosServiceConfig {
     HessianServiceExporter exporter = new HessianServiceExporter();
     exporter.setService(productService);
     exporter.setServiceInterface(IProductService.class);
-    return exporter;
-  }
-
-  @Bean(name = "/AreaService")
-  public HessianServiceExporter hessianAreaServiceExporter() {
-    HessianServiceExporter exporter = new HessianServiceExporter();
-    exporter.setService(areaService);
-    exporter.setServiceInterface(IAreaService.class);
     return exporter;
   }
 

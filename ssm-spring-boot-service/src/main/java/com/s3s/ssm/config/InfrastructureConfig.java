@@ -36,7 +36,6 @@ import com.s3s.ssm.security.entity.SecurityRole;
 import com.sunrise.xdoc.entity.catalog.Product;
 import com.sunrise.xdoc.entity.config.Area;
 import com.sunrise.xdoc.entity.contact.Supplier;
-import com.sunrise.xdoc.entity.employee.Employee;
 import com.sunrise.xdoc.entity.sale.Invoice;
 import com.sunrise.xdoc.entity.store.FinalPeriodSaleProcess;
 import com.sunrise.xdoc.entity.system.SequenceNumber;
@@ -64,7 +63,7 @@ public class InfrastructureConfig {
 
     LocalContainerEntityManagerFactoryBean factory = new LocalContainerEntityManagerFactoryBean();
     factory.setJpaVendorAdapter(vendorAdapter);
-    factory.setPackagesToScan(Area.class.getPackage().getName(), Employee.class.getPackage().getName(), Invoice.class.getPackage().getName(), Product.class
+    factory.setPackagesToScan(Area.class.getPackage().getName(), Invoice.class.getPackage().getName(), Product.class
                     .getPackage().getName(), Supplier.class.getPackage().getName(),
             FinalPeriodSaleProcess.class.getPackage().getName(), SequenceNumber.class.getPackage().getName(),
             SecurityRole.class.getPackage().getName());

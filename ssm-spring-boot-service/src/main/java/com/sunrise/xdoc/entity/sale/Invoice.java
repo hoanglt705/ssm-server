@@ -21,7 +21,6 @@ import javax.validation.constraints.NotNull;
 import com.s3s.ssm.dto.InvoiceStatus;
 import com.s3s.ssm.entity.AbstractActiveCodeOLObject;
 import com.sunrise.xdoc.entity.config.FoodTable;
-import com.sunrise.xdoc.entity.employee.Employee;
 
 @Entity
 @Table(name = "sale_invoice")
@@ -32,7 +31,7 @@ public class Invoice extends AbstractActiveCodeOLObject {
   private Date endedDate = null;
   private FoodTable foodTable;
   private InvoiceStatus invoiceStatus = InvoiceStatus.BOOKING;
-  private Employee staff;
+  private String staff;
   private Long totalAmount = 0L;
   private Long totalReturnAmount = 0L;
   private Long totalPaymentAmount = 0L;
@@ -93,11 +92,11 @@ public class Invoice extends AbstractActiveCodeOLObject {
 
   @ManyToOne
   @JoinColumn(name = "staff_id")
-  public Employee getStaff() {
+  public String getStaff() {
     return staff;
   }
 
-  public void setStaff(Employee staff) {
+  public void setStaff(String staff) {
     this.staff = staff;
   }
 

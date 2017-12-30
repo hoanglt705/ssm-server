@@ -6,8 +6,6 @@ import javax.servlet.ServletException;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.context.web.SpringBootServletInitializer;
 
-import com.s3s.ssm.data.SSMDataLoader;
-
 public class ApplicationWebXml extends SpringBootServletInitializer {
   @Override
   protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
@@ -17,7 +15,6 @@ public class ApplicationWebXml extends SpringBootServletInitializer {
   @Override
   public void onStartup(ServletContext servletContext) throws ServletException {
     super.onStartup(servletContext);
-    SSMDataLoader.initDatabase();
   }
 
 }
