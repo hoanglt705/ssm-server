@@ -1,5 +1,6 @@
 package com.s3s.ssm.service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -33,4 +34,6 @@ public interface IInvoiceService extends IViewService<InvoiceDto> {
   long countInvoice(InvoiceStatus status);
 
   void updateQuantityOfProductInStore(InvoiceDto transferToDto);
+  
+  public List<InvoiceDto> getInvoice(Date fromDate, Date toDate);
 }
