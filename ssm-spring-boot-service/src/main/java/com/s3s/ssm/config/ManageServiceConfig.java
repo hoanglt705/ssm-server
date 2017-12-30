@@ -37,8 +37,6 @@ import com.s3s.ssm.service.IProductService;
 import com.s3s.ssm.service.IProductTypeService;
 import com.s3s.ssm.service.IReceiptService;
 import com.s3s.ssm.service.IRoleService;
-import com.s3s.ssm.service.ISecurityRoleService;
-import com.s3s.ssm.service.ISecurityUserService;
 import com.s3s.ssm.service.ISequenceNumberService;
 import com.s3s.ssm.service.IShiftService;
 import com.s3s.ssm.service.IStoreService;
@@ -98,12 +96,6 @@ public class ManageServiceConfig {
   private IRoleService roleService;
 
   @Autowired
-  private ISecurityRoleService securityRoleService;
-
-  @Autowired
-  private ISecurityUserService securityUserService;
-
-  @Autowired
   private ISupplierService supplierService;
 
   @Autowired
@@ -157,22 +149,6 @@ public class ManageServiceConfig {
     HessianServiceExporter exporter = new HessianServiceExporter();
     exporter.setService(this.roleService);
     exporter.setServiceInterface(IRoleService.class);
-    return exporter;
-  }
-
-  @Bean(name = "/SecurityRoleService")
-  public HessianServiceExporter hessianSecurityRoleServiceExporter() {
-    HessianServiceExporter exporter = new HessianServiceExporter();
-    exporter.setService(this.securityRoleService);
-    exporter.setServiceInterface(ISecurityRoleService.class);
-    return exporter;
-  }
-
-  @Bean(name = "/SecurityUserService")
-  public HessianServiceExporter hessianSecurityUserServiceExporter() {
-    HessianServiceExporter exporter = new HessianServiceExporter();
-    exporter.setService(this.securityUserService);
-    exporter.setServiceInterface(ISecurityUserService.class);
     return exporter;
   }
 
